@@ -1,0 +1,175 @@
+body {
+  background: #191F24;
+  overflow: hidden; }
+
+.spinner {
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  border: 5px solid transparent;
+  border-bottom: 5px solid #006c84; }
+  .spinner::before, .spinner::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    border: 5px solid transparent;
+    margin: auto;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0; }
+  .spinner::before {
+    border-bottom: 5px solid #e2e8e4;
+    height: 30%;
+    width: 30%; }
+  .spinner::after {
+    border-bottom: 5px solid #6eb5c0;
+    height: 65%;
+    width: 65%; }
+
+@keyframes animateCenter {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  25% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+@keyframes animateMain {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+.spiral {
+  top: -160px;
+  left: -160px;
+  animation: animateMain ease 2.5s infinite; }
+  .spiral::before {
+    animation: animateCenter ease 2.5s infinite; }
+  .spiral::after {
+    animation: animateMain ease 2.5s infinite; }
+
+@keyframes animateReverse {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(-720deg);
+    -ms-transform: rotate(-720deg);
+    -o-transform: rotate(-720deg);
+    transform: rotate(-720deg); } }
+@keyframes growShrinkSmall {
+  50% {
+    height: 65%;
+    width: 65%; }
+  100% {
+    height: 30%;
+    width: 30%; } }
+@keyframes growShrinkMedium {
+  50% {
+    height: 30%;
+    width: 30%; }
+  100% {
+    height: 65%;
+    width: 65%; } }
+.atom {
+  top: -160px;
+  left: 160px;
+  animation: animateMain linear 1.66667s infinite; }
+  .atom::before {
+    animation: animateMain linear 1.66667s infinite, growShrinkSmall linear 7.5s infinite; }
+  .atom::after {
+    animation: animateReverse linear 1.66667s infinite, growShrinkMedium linear 7.5s infinite; }
+
+@keyframes toggleStackMedium {
+  25% {
+    height: 100%;
+    width: 100%; }
+  50% {
+    height: 65%;
+    width: 65%; }
+  75% {
+    height: 100%;
+    width: 100%; }
+  100% {
+    height: 65%;
+    width: 65%; } }
+@keyframes toggleStackSmall {
+  25% {
+    height: 100%;
+    width: 100%; }
+  50% {
+    height: 30%;
+    width: 30%; }
+  75% {
+    height: 100%;
+    width: 100%; }
+  100% {
+    height: 30%;
+    width: 30%; } }
+@keyframes rotateSmall {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  15% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+@keyframes rotateMedium {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  27% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+.stack {
+  top: 120px;
+  animation: animateMain ease 2.5s infinite; }
+  .stack::before {
+    animation: rotateSmall ease 2.5s infinite, toggleStackSmall ease 10s infinite;
+    left: -5px; }
+  .stack::after {
+    animation: rotateMedium ease 2.5s infinite, toggleStackMedium ease 10s infinite;
+    left: -5px; }
+
+/*# sourceMappingURL=css-loader-trispin.css.map */

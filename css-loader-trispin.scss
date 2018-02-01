@@ -1,0 +1,249 @@
+// Variables
+$spinner-size: 80px;
+$background-color: #191F24;
+$border-width: 5px;
+$animation-duration: 2.5s;
+$degree-rotation: 360deg;
+$circle-small-size: 30%;
+$circle-medium-size: 65%;
+
+// Color Scheme 1
+// $color-one: #ff4447;
+// $color-two: #257985;
+// $color-three: #fff;
+
+// Color Scheme 2
+$color-one: #006c84;
+$color-two: #6eb5c0; 
+$color-three: #e2e8e4;
+
+@mixin base
+{
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+
+@mixin animate
+{
+  -webkit-transform: rotate($degree-rotation);
+  -ms-transform: rotate($degree-rotation);
+  -o-transform: rotate($degree-rotation);
+  transform: rotate($degree-rotation);
+}
+
+@mixin reverseRotate
+{
+  -webkit-transform: rotate(-$degree-rotation * 2);
+  -ms-transform: rotate(-$degree-rotation * 2);
+  -o-transform: rotate(-$degree-rotation * 2);
+  transform: rotate(-$degree-rotation * 2);
+}
+
+body
+{
+  background: $background-color;
+  overflow: hidden;
+}
+
+.spinner
+{
+  border-radius: 50%;
+  height: $spinner-size;
+  width: $spinner-size;
+  position: absolute;
+  margin: auto;
+  left: 0; top: 0; 
+  right: 0; bottom: 0;
+  background: transparent;
+  border: $border-width solid transparent;
+  border-bottom: $border-width solid $color-one;
+  
+  &::before, &::after
+  {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    border: $border-width solid transparent;
+    margin: auto;
+    left: 0; top: 0; 
+    right: 0; bottom: 0;
+  }
+  
+  &::before
+  {
+    border-bottom: $border-width solid $color-three;
+    height: $circle-small-size;
+    width: $circle-small-size;
+  }
+  
+  &::after
+  {
+    border-bottom: $border-width solid $color-two;
+    height: $circle-medium-size;
+    width: $circle-medium-size;
+  }
+}
+
+@keyframes animateCenter
+{
+  0%{@include base;}
+  25%{@include base;}
+  100%{@include animate;}
+}
+
+@keyframes animateMain
+{
+  0%{@include base;}
+  100%{@include animate;}
+}
+
+.spiral
+{
+  top: -$spinner-size*2;
+  left: -$spinner-size*2;
+  
+  // Animation 1
+  animation: animateMain ease $animation-duration infinite;
+  
+  &::before
+  {
+    // Animation 1
+    animation: animateCenter ease $animation-duration infinite;
+  }
+  
+  &::after
+  {
+    // Animation 1
+    animation: animateMain ease $animation-duration infinite;
+  }
+}
+
+@keyframes animateReverse
+{
+  0%{@include base;}
+  100%{@include reverseRotate;}
+}
+
+@keyframes growShrinkSmall
+{
+  50%{
+    height: $circle-medium-size;
+    width: $circle-medium-size;
+  }  
+  100%{
+    height: $circle-small-size;
+    width: $circle-small-size;
+  }
+}
+
+@keyframes growShrinkMedium
+{  
+  50%{
+    height: $circle-small-size;
+    width: $circle-small-size;
+  } 
+  100%{
+    height: $circle-medium-size;
+    width: $circle-medium-size;
+  }
+}
+
+.atom
+{
+  top: -$spinner-size*2;
+  left: $spinner-size*2;
+  
+  animation: animateMain linear $animation-duration/1.5 infinite;
+  
+  &::before
+  {
+    // Animation 1
+    animation: animateMain linear $animation-duration/1.5 infinite, growShrinkSmall linear $animation-duration*3 infinite;
+  }
+  
+  &::after
+  {
+    // Animation 1
+    animation: animateReverse linear $animation-duration/1.5 infinite, growShrinkMedium linear $animation-duration*3 infinite;
+  }
+}
+
+@keyframes toggleStackMedium
+{  
+  25%{
+    height: 100%;
+    width: 100%;
+  }
+  50%{
+    height: $circle-medium-size;
+    width: $circle-medium-size;
+  } 
+  75%{
+    height: 100%;
+    width: 100%;
+  }
+  100%{
+    height: $circle-medium-size;
+    width: $circle-medium-size;
+  } 
+}
+
+@keyframes toggleStackSmall
+{ 
+  25%{
+    height: 100%;
+    width: 100%;
+  }
+  50%{
+    height: $circle-small-size;
+    width: $circle-small-size;
+  } 
+  75%{
+    height: 100%;
+    width: 100%;
+  }
+  100%{
+    height: $circle-small-size;
+    width: $circle-small-size;
+  }
+}
+
+@keyframes rotateSmall
+{
+  0%{@include base;}
+  15%{@include base;}
+  100%{@include animate;}
+}
+
+@keyframes rotateMedium
+{
+  0%{@include base;}
+  27%{@include base;}
+  100%{@include animate;}
+}
+
+.stack
+{
+  top: $spinner-size*1.5;
+  
+  // Animation 1
+  animation: animateMain ease $animation-duration infinite;
+  
+  &::before
+  {
+    // Animation 1
+    animation: rotateSmall ease $animation-duration infinite,
+               toggleStackSmall ease $animation-duration*4 infinite;
+    left: -5px;
+  }
+  
+  &::after
+  {
+    // Animation 1
+    animation: rotateMedium ease $animation-duration infinite,
+               toggleStackMedium ease $animation-duration*4 infinite;
+    left: -5px;
+  }
+}
